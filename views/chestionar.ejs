@@ -1,6 +1,6 @@
 <div>
     <h1>Quiz fotografii</h1>
-    <form>
+    <form action="/rezultat-chestionar" method="POST">
        <% for(var i = 0; i < intrebari.length; i++) { %>
        <h3><%= intrebari[i].intrebare %></h3>
        <% for(var j = 0; j < intrebari[i].variante.length; j++) { %>
@@ -11,3 +11,5 @@
        <input type="submit" value="Trimite" />
     </form>
  </div>
+
+ 
