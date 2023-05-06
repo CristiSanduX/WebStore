@@ -7,6 +7,7 @@ const port = 6789;
 app.set('view engine', 'ejs');
 // suport pentru layout-uri - implicit fișierul care reprezintă template-ul site-ului este views/layout.ejs
 app.use(expressLayouts);
+app.set('layout', 'layout');
 // directorul 'public' va conține toate resursele accesibile direct de către client (e.g., fișiere css, javascript, imagini)
 app.use(express.static('public'))
 // corpul mesajului poate fi interpretat ca json; datele de la formular se găsesc în format json în req.body
@@ -19,20 +20,21 @@ app.use(bodyParser.urlencoded({
 // proprietățile obiectului Request - req - https://expressjs.com/en/api.html#req
 // proprietățile obiectului Response - res - https://expressjs.com/en/api.html#res
 app.get('/', (req, res) => res.send('Hello World'));
-// la accesarea din browser adresei http://localhost:6789/chestionar se va apela funcția
-specificată
+// la accesarea din browser adresei http://localhost:6789/chestionar se va apela funcția specificată
 app.get('/chestionar', (req, res) => {
     const listaIntrebari = [{
-            intrebare: 'Întrebarea 1',
-            variante: ['varianta 1', 'varianta 2', 'varianta 3', 'varianta 4'],
+            intrebare: 'Când a fost realizată prima fotografie din lume?',
+            variante: ['1750', '1929', '1826', '1580'],
             corect: 0
         },
         //...
     ];
     // în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
     res.render('chestionar', {
-        intrebari: listaIntrebari
+        intrebari: listaIntrebari,
+        layout: 'layout'
     });
+    
 });
 app.post('/rezultat-chestionar', (req, res) => {
     console.log(req.body);
