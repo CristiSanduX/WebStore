@@ -1,15 +1,15 @@
 <div>
-    <h1>Quiz fotografii</h1>
-    <form action="/rezultat-chestionar" method="POST">
-       <% for(var i = 0; i < intrebari.length; i++) { %>
-       <h3><%= intrebari[i].intrebare %></h3>
-       <% for(var j = 0; j < intrebari[i].variante.length; j++) { %>
-       <input type="radio" name="intrebare<%= i %>" value="<%= j %>" id="intrebare<%= i %>-varianta<%= j %>"/>
-       <label for="intrebare<%= i %>-varianta<%= j %>"><%= intrebari[i].variante[j] %></label>
-       <% } %>
-       <% } %>
-       <input type="submit" value="Trimite" />
-    </form>
- </div>
+  <h1>Quiz fotografii</h1>
+  <form action="/rezultat-chestionar" method="POST">
+    <% for(var i = 0; i < intrebari.length; i++) { %>
+    <h3><%= intrebari[i].intrebare %></h3>
+    <% for(var j = 0; j < intrebari[i].variante.length; j++) { %>
+    <input type="radio" name="intrebare<%= i %>" value="<%= j %>" id="intrebare<%= i %>-varianta<%= j %>" />
+    <label for="intrebare<%= i %>-varianta<%= j %>"><%= intrebari[i].variante[j] %></label>
+    <% } %>
+    <% } %>
+    <input type="submit" value="Trimite" />
+  </form>
+</div>
 
  

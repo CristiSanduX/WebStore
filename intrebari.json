@@ -1,0 +1,52 @@
+[
+    {
+        "intrebare": "Când a fost realizată prima fotografie din lume?",
+        "variante": [
+            "1750",
+            "1929",
+            "1826",
+            "1580"
+        ],
+        "corect": 2
+    },
+    {
+        "intrebare": "De la ce vine abrevierea DSLR?",
+        "variante": [
+            "Dont shoot like Rambo",
+            "Digital single lens refraction",
+            "Digital single lens reflex",
+            "Dont stop living and romancing"
+        ],
+        "corect": 2
+    },
+    {
+        "intrebare": "Câți pixeli are un megapixel?",
+        "variante": [
+            "o mie",
+            "o sută",
+            "un miliard",
+            "un milion"
+        ],
+        "corect": 3
+    },
+    {
+        "intrebare": "Care este obiectivul cel mai utilizat în fotografia de portrete?",
+        "variante": [
+            "ultra-wide",
+            "telephoto",
+            "macro",
+            "standard"
+        ],
+        "corect": 3
+    },
+    {
+        "intrebare": "Ce înseamnă acronimul ISO în fotografie?",
+        "variante": [
+            "Image Sensor Operation",
+            "International Standards Organization",
+            "I Shoot Often",
+            "Internal Shutter Option"
+        ],
+        "corect": 1
+    }
+]
