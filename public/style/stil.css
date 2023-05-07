@@ -1,0 +1,69 @@
+/* MENIU */
+nav {
+    background-color: #8670c7;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4); /* adaugă o umbră la marginile meniului */
+    border-radius: 20px; 
+    padding: 10px; /* stabilește spațierea dintre conținut și margini */
+    justify-content: center; /* aliniază elementele în centru */
+    display: flex; /* meniul este afișat ca un container flexibil */
+    text-transform: uppercase;
+  }
+  @font-face {
+    font-family: 'Jack';
+    src: url('jack.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+  font-family: 'Campus';
+  src: url('campus.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+nav a {
+  font-family: 'Jack', sans-serif;
+  font-size: 18px;
+  /* Restul stilurilor pentru link-uri */
+
+  color: black; /* culoarea link-urilor */
+  padding: 5px 20px 5px 20px; /* spațierea dintre link-uri */
+    
+  transition: background-color 0.7s ease-in-out, color 0.7s ease-in-out; 
+  /* efectul de tranziție atunci când utilizatorul trece cursorul peste link-uri */
+
+  position: relative;
+  text-decoration: none;
+}
+
+nav a:hover{
+  cursor: pointer; /* schimbă aspectul cursorului de mouse la forma unei mâini */
+  box-shadow: 0 0 5px rgba(0,0,0,0.3); 
+  font-size: 22px; /* mărește dimensiunea fontului */
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+/* rotim elementele din meniu pare la -10 grade  și cele impare la 10 grade */
+nav a:nth-child(even):hover {
+  transform: rotate(-10deg);
+}
+nav a:nth-child(odd):hover {
+  transform: rotate(10deg);
+}
+
+nav a::after {
+  content: ''; /* folosit pentru a adăuga o linie sub textul link-urilor */
+  position: absolute; /*  valoarea absolute pentru a poziționa elementul pseudo în raport cu părintele */
+  bottom: 0; /* specifică distanța dintre partea de jos a elementului pseudo și partea de jos a primului element parinte */
+  left: 0;   /* idem */
+  width: 100%; /*pentru a acoperi întreaga lățime a link-urilor */
+  height: 3px;
+  background-color: white;
+  transform: scaleX(0); /* ascunde linia de subliniere */
+  transform-origin: left; /* punctul de origine al transformării (de la stânga la dreapta) */
+  transition: transform 0.3s ease; /* animația elementului : tranziție de 0.3s */
+}
+nav a:hover::after {
+  transform: scaleX(1); 
+}
