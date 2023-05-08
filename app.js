@@ -34,11 +34,13 @@ const citireIntrebari = async () => {
 // la accesarea din browser adresei http://localhost:6789/ se va returna textul 'Hello World'
 // proprietățile obiectului Request - req - https://expressjs.com/en/api.html#req
 // proprietățile obiectului Response - res - https://expressjs.com/en/api.html#res
-app.get("/acasa", (req, res) => {
-  res.render("acasa", {
-    layout: "layout"
-  })
 
+app.get("/", async (req, res) => {
+  // în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
+  const listaIntrebari = await citireIntrebari();
+  res.render("index", {
+    layout: "layout"
+  });
 });
 // la accesarea din browser adresei http://localhost:6789/chestionar se va apela funcția specificată
 app.get("/chestionar", async (req, res) => {
