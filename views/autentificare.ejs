@@ -11,5 +11,10 @@
     <input type="password" id="parola" name="parola"><br><br>
     <input type="submit" value="Autentificare">
   </form>
+  <% if (mesajEroare) { %>
+    <p style="color: red;"><%= mesajEroare %></p>
+  <% } %>
+  
+  
 </body>
 

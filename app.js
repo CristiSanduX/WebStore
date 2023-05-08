@@ -38,11 +38,14 @@ const citireIntrebari = async () => {
 // proprietățile obiectului Request - req - https://expressjs.com/en/api.html#req
 // proprietățile obiectului Response - res - https://expressjs.com/en/api.html#res
 
-app.get("/",  (req, res) => {
+app.get("/", (req, res) => {
+  const utilizator = req.cookies.utilizator;
   res.render("index", {
-    layout: "layout"
+    layout: "layout",
+    utilizator: utilizator
   });
 });
+
 // la accesarea din browser adresei http://localhost:6789/chestionar se va apela funcția specificată
 app.get("/chestionar", async (req, res) => {
   // în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
@@ -53,16 +56,24 @@ app.get("/chestionar", async (req, res) => {
   });
 });
 app.get("/autentificare", (req, res) => {
+  res.clearCookie("mesajEroare");
   res.render("autentificare", {
-    layout: "layout"
+    layout: "layout",
+    mesajEroare: req.cookies.mesajEroare
   });
 });
+app.get('/delogare', (req, res) => {
+  res.clearCookie('utilizator');
+  res.redirect('/');
+});
+
 
 app.post('/verificare-autentificare', (req, res)  => {
   console.log(req.body);
   const { utilizator, parola } = req.body;
   if (utilizator === 'cristi' && parola === 'sandu') {
     res.cookie('utilizator', utilizator);
+    res.clearCookie('mesajEroare');
     res.redirect('http://localhost:6789/');
   } else {
     res.cookie('mesajEroare', 'Autentificarea a eșuat');
