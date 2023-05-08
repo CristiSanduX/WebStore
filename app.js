@@ -35,9 +35,7 @@ const citireIntrebari = async () => {
 // proprietățile obiectului Request - req - https://expressjs.com/en/api.html#req
 // proprietățile obiectului Response - res - https://expressjs.com/en/api.html#res
 
-app.get("/", async (req, res) => {
-  // în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
-  const listaIntrebari = await citireIntrebari();
+app.get("/",  (req, res) => {
   res.render("index", {
     layout: "layout"
   });
@@ -51,6 +49,17 @@ app.get("/chestionar", async (req, res) => {
     layout: "layout"
   });
 });
+app.get("/autentificare", (req, res) => {
+  res.render("autentificare", {
+    layout: "layout"
+  });
+});
+
+app.post('/verificare-autentificare', (req, res)  => {
+  console.log(req.body);
+});
+
+
 app.post("/rezultat-chestionar", async (req, res) => {
   console.log(req.body);
   let numarRaspunsuriCorecte = 0;
