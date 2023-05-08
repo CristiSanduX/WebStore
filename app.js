@@ -1,9 +1,12 @@
+const cookieParser = require('cookie-parser')
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
 const fs = require("fs").promises; // modulul fs pentru a citi fișierul JSON
 const app = express();
 const port = 6789;
+
+app.use(cookieParser());
 // directorul 'views' va conține fișierele .ejs (html + js executat la server)
 app.set("view engine", "ejs");
 // suport pentru layout-uri - implicit fișierul care reprezintă template-ul site-ului este views/layout.ejs
@@ -57,6 +60,14 @@ app.get("/autentificare", (req, res) => {
 
 app.post('/verificare-autentificare', (req, res)  => {
   console.log(req.body);
+  const { utilizator, parola } = req.body;
+  if (utilizator === 'cristi' && parola === 'sandu') {
+    res.cookie('utilizator', utilizator);
+    res.redirect('http://localhost:6789/');
+  } else {
+    res.cookie('mesajEroare', 'Autentificarea a eșuat');
+    res.redirect('http://localhost:6789/autentificare');
+  }
 });
 
 
