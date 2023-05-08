@@ -1,10 +1,20 @@
 const cookieParser = require('cookie-parser')
+const session = require('express-session');
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
 const fs = require("fs").promises; // modulul fs pentru a citi fișierul JSON
 const app = express();
 const port = 6789;
+
+app.use(session({
+  secret: 'secret-key', // cheia secretă utilizată pentru a cripta cookie-ul de sesiune
+  resave: false, // salvează sesiunea chiar dacă nu a fost modificată
+  saveUninitialized: false // nu salvează sesiunea dacă nu a fost inițializată
+}));
+
+//app.use(express.urlencoded({ extended: false }));
+
 
 app.use(cookieParser());
 // directorul 'views' va conține fișierele .ejs (html + js executat la server)
@@ -38,7 +48,17 @@ const citireIntrebari = async () => {
 // proprietățile obiectului Request - req - https://expressjs.com/en/api.html#req
 // proprietățile obiectului Response - res - https://expressjs.com/en/api.html#res
 
-app.get("/", (req, res) => {
+// middleware pentru verificarea sesiunii de autentificare
+const autentificareMiddleware = (req, res, next) => {
+  if (req.session.utilizator) {
+    next(); // permit accesul către ruta protejată
+  } else {
+    res.redirect('/autentificare');
+  }
+};
+
+
+app.get("/", autentificareMiddleware, (req, res) => {
   const utilizator = req.cookies.utilizator;
   res.render("index", {
     layout: "layout",
@@ -65,6 +85,7 @@ app.get("/autentificare", (req, res) => {
 app.get('/delogare', (req, res) => {
   res.clearCookie('utilizator');
   res.redirect('/');
+  req.session.destroy(); // ștergem sesiunea
 });
 
 
@@ -72,14 +93,16 @@ app.post('/verificare-autentificare', (req, res)  => {
   console.log(req.body);
   const { utilizator, parola } = req.body;
   if (utilizator === 'cristi' && parola === 'sandu') {
-    res.cookie('utilizator', utilizator);
+    req.session.utilizator = utilizator;
     res.clearCookie('mesajEroare');
-    res.redirect('http://localhost:6789/');
+    res.redirect('/');
   } else {
     res.cookie('mesajEroare', 'Autentificarea a eșuat');
-    res.redirect('http://localhost:6789/autentificare');
+    res.redirect('/autentificare');
   }
 });
+
+
 
 
 app.post("/rezultat-chestionar", async (req, res) => {
