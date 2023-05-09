@@ -12,6 +12,14 @@
       <a href="/">Acasă</a>
       <a href="/chestionar">Chestionar</a>
     </nav>
+    <% if (typeof utilizator !== "undefined") { %>
+      <h1>Autentificat ca <em><%= utilizator %></em>!</h1>
+        <form action="/delogare" method="get">
+            <input type="submit" value="Delogare">
+        </form>
+    <% } %>
+    
+    
   </header>
   <main>
     <%- body %>

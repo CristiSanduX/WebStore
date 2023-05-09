@@ -51,6 +51,7 @@ const citireIntrebari = async () => {
 // middleware pentru verificarea sesiunii de autentificare
 const autentificareMiddleware = (req, res, next) => {
   if (req.session.utilizator) {
+    res.locals.utilizator = req.session.utilizator; // adaugă numele utilizatorului în obiectul locals
     next(); // permit accesul către ruta protejată
   } else {
     res.redirect('/autentificare');
@@ -58,21 +59,24 @@ const autentificareMiddleware = (req, res, next) => {
 };
 
 
+
 app.get("/", autentificareMiddleware, (req, res) => {
-  const utilizator = req.cookies.utilizator;
+  const utilizator = req.session.utilizator;
   res.render("index", {
     layout: "layout",
     utilizator: utilizator
   });
 });
 
+
+
 // la accesarea din browser adresei http://localhost:6789/chestionar se va apela funcția specificată
-app.get("/chestionar", async (req, res) => {
+app.get("/chestionar",autentificareMiddleware, async (req, res) => {
   // în fișierul views/chestionar.ejs este accesibilă variabila 'intrebari' care conține vectorul de întrebări
   const listaIntrebari = await citireIntrebari();
   res.render("chestionar", {
     intrebari: listaIntrebari,
-    layout: "layout"
+    layout: "layout",
   });
 });
 app.get("/autentificare", (req, res) => {
@@ -84,26 +88,25 @@ app.get("/autentificare", (req, res) => {
 });
 app.get('/delogare', (req, res) => {
   res.clearCookie('utilizator');
-  res.redirect('/');
   req.session.destroy(); // ștergem sesiunea
+  res.redirect('/');
 });
 
 
 app.post('/verificare-autentificare', (req, res)  => {
+
   console.log(req.body);
   const { utilizator, parola } = req.body;
-  if (utilizator === 'cristi' && parola === 'sandu') {
+  if (utilizator === 'CSX' && parola === 'Salut') {
     req.session.utilizator = utilizator;
+    res.cookie('utilizator', utilizator);
     res.clearCookie('mesajEroare');
     res.redirect('/');
   } else {
     res.cookie('mesajEroare', 'Autentificarea a eșuat');
-    res.redirect('/autentificare');
+    res.redirect('autentificare');
   }
 });
-
-
-
 
 app.post("/rezultat-chestionar", async (req, res) => {
   console.log(req.body);

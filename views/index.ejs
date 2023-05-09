@@ -2,15 +2,3 @@
   <title>Acasă</title>
 </head>
 
-<body>
-    <% if (utilizator) { %>
-        <h2>Bine ai venit, <%= utilizator %>!</h2>
-        <form action="/delogare" method="get">
-            <input type="submit" value="Delogare">
-        </form>
-      <% } else { %>
-        <h2>Bine ai venit!</h2>
-        <h2><a href="/autentificare">Autentificare</a></h2>
-      <% } %>
-</body>
-
