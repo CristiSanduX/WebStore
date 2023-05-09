@@ -1,0 +1,20 @@
+[
+    {
+        "utilizator": "CSX",
+        "parola": "Test1",
+        "nume": "Sandu",
+        "prenume": "Cristi"
+    },
+    {
+        "utilizator": "eduard96",
+        "parola": "Test2",
+        "nume": "Ciobanu",
+        "prenume": "Eduard"
+    },
+    {
+        "utilizator": "luiza23",
+        "parola": "Test3",
+        "nume": "Ganea",
+        "prenume": "Luiza"
+    }
+]

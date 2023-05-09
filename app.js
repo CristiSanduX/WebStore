@@ -3,7 +3,8 @@ const session = require('express-session');
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
-const fs = require("fs").promises; // modulul fs pentru a citi fișierul JSON
+const fs = require('fs');
+const fs2 = require("fs").promises; // modulul fs pentru a citi fișierul JSON
 const app = express();
 const port = 6789;
 
@@ -35,7 +36,7 @@ app.use(
 
 const citireIntrebari = async () => {
   try {
-    const data = await fs.readFile("./intrebari.json");
+    const data = await fs2.readFile("./intrebari.json");
     const intrebari = JSON.parse(data);
     return intrebari;
   } catch (error) {
@@ -97,8 +98,17 @@ app.post('/verificare-autentificare', (req, res)  => {
 
   console.log(req.body);
   const { utilizator, parola } = req.body;
-  if (utilizator === 'CSX' && parola === 'Salut') {
-    req.session.utilizator = utilizator;
+
+// citirea datelor din fisierul utilizatori.json
+const fisierUtilizatori = fs.readFileSync('utilizatori.json');
+const utilizatori = JSON.parse(fisierUtilizatori);
+
+// căutarea utilizatorului în fișierul utilizatori.json
+const utilizatorGasit = utilizatori.find(u => u.utilizator === utilizator && u.parola === parola);
+
+if (utilizatorGasit) {
+  // setarea variabilei de sesiune cu datele utilizatorului autentificat (fără parolă)
+    req.session.utilizator = { nume: utilizatorGasit.nume, prenume: utilizatorGasit.prenume };
     res.cookie('utilizator', utilizator);
     res.clearCookie('mesajEroare');
     res.redirect('/');
