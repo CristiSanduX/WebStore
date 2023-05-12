@@ -1,3 +1,8 @@
+body {
+  background-image: url("/imagini/f5.jpg");
+  background-size: cover;
+ }
+
 /* MENIU */
 nav {
     background-color: #8670c7;
@@ -67,3 +72,41 @@ nav a::after {
 nav a:hover::after {
   transform: scaleX(1); 
 }
+
+
+
+#logare {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  background-color: rgba(56, 61, 153, 0.4);
+  padding: 20px;
+  width: 400px;
+  margin: 0 auto;
+  flex-direction: column;
+  margin-top: 100px;
+  border-radius: 10px; /* Adaugă margini rotunjite */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Adaugă un efect de umbrire */
+}
+
+
+#logare form {
+  margin-top: 20px;
+}
+
+#quiz {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  background-color: rgba(121, 122, 144, 0.9);
+  padding: 20px;
+  width: 820px;
+  margin: 0 auto;
+  flex-direction: column;
+  border-radius: 10px; /* Adaugă margini rotunjite */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Adaugă un efect de umbrire */
+}
+
+
