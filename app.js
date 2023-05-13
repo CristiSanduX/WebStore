@@ -8,6 +8,42 @@ const fs2 = require("fs").promises; // modulul fs pentru a citi fișierul JSON
 const app = express();
 const port = 6789;
 
+const mysql = require('mysql');
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "12345678",
+  database: "cumparaturi"
+});
+
+db.connect(function(err) {
+  if (err) throw err;
+  console.log("Conectat la baza de date!");
+});
+app.get("/creare-bd", (req, res) => {
+  let sql = "CREATE TABLE produse(id int AUTO_INCREMENT, nume VARCHAR(255), pret DECIMAL(10,2), PRIMARY KEY(id))";
+  db.query(sql, (err, result) => {
+    if(err) throw err;
+    console.log(result);
+    res.redirect("/");
+  });
+});
+app.get("/incarcare-bd", (req, res) => {
+  let sql = "INSERT INTO produse (nume, pret) VALUES ?";
+  let values = [
+    ['Produs1', 10.00],
+    ['Produs2', 20.00],
+    ['Produs3', 30.00]
+    // Alte produse...
+  ];
+  db.query(sql, [values], function(err, result) {
+    if (err) throw err;
+    console.log("Numărul de înregistrări adăugate: " + result.affectedRows);
+    res.redirect("/");
+  });
+});
+
+
 app.use(session({
   secret: 'secret-key', // cheia secretă utilizată pentru a cripta cookie-ul de sesiune
   resave: false, // salvează sesiunea chiar dacă nu a fost modificată
