@@ -1,8 +1,30 @@
-<head>
-  <title>Acasă</title>
-</head>
-<body>
-  <button><a href="/creare-bd">Creare BD</a></button>
-  <button><a href="/incarcare-bd">Încarcare BD</a></button>
-</body>
-
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>Produse</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nume</th>
+          <th>Pret</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% produse.forEach((produs) => { %>
+          <tr>
+            <td><%= produs.id %></td>
+            <td><%= produs.nume %></td>
+            <td><%= produs.pret %></td>
+            <td><button type="button">Adaugă în coș</button></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <br><br>
+    <button><a href="/creare-bd">Creare BD</a></button>
+    <button><a href="/incarcare-bd">Încarcare BD</a></button>
+  </body>
+</html>

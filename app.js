@@ -8,6 +8,7 @@ const fs2 = require("fs").promises; // modulul fs pentru a citi fișierul JSON
 const app = express();
 const port = 6789;
 
+//Conexiunea cu baza de date MySql
 const mysql = require('mysql');
 const db = mysql.createConnection({
   host: "localhost",
@@ -20,6 +21,8 @@ db.connect(function(err) {
   if (err) throw err;
   console.log("Conectat la baza de date!");
 });
+
+//Butoanele de creare și încărcare
 app.get("/creare-bd", (req, res) => {
   let sql = "CREATE TABLE produse(id int AUTO_INCREMENT, nume VARCHAR(255), pret DECIMAL(10,2), PRIMARY KEY(id))";
   db.query(sql, (err, result) => {
@@ -31,10 +34,9 @@ app.get("/creare-bd", (req, res) => {
 app.get("/incarcare-bd", (req, res) => {
   let sql = "INSERT INTO produse (nume, pret) VALUES ?";
   let values = [
-    ['Produs1', 10.00],
-    ['Produs2', 20.00],
-    ['Produs3', 30.00]
-    // Alte produse...
+    ['Produs1Aparat foto digital Nikon COOLPIX P1000', 4499.99],
+    ['Obiectiv foto Canon EF 50mm', 629.99],
+    ['Aparat foto DSLR Canon EOS 2000D', 420.00]
   ];
   db.query(sql, [values], function(err, result) {
     if (err) throw err;
@@ -43,16 +45,31 @@ app.get("/incarcare-bd", (req, res) => {
   });
 });
 
+// Funcție pentru a extrage produsele din baza de date
+function getProduse(callback) {
+  const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '12345678',
+    database: 'cumparaturi'
+  });
+
+  connection.connect();
+
+  connection.query('SELECT * FROM produse', (error, results) => {
+    if (error) throw error;
+    callback(results);
+  });
+
+  connection.end();
+}
+
 
 app.use(session({
   secret: 'secret-key', // cheia secretă utilizată pentru a cripta cookie-ul de sesiune
   resave: false, // salvează sesiunea chiar dacă nu a fost modificată
   saveUninitialized: false // nu salvează sesiunea dacă nu a fost inițializată
 }));
-
-//app.use(express.urlencoded({ extended: false }));
-
-
 app.use(cookieParser());
 // directorul 'views' va conține fișierele .ejs (html + js executat la server)
 app.set("view engine", "ejs");
@@ -99,11 +116,15 @@ const autentificareMiddleware = (req, res, next) => {
 
 app.get("/", autentificareMiddleware, (req, res) => {
   const utilizator = req.session.utilizator;
-  res.render("index", {
-    layout: "layout",
-    utilizator: utilizator
+  getProduse((produse) => {
+    res.render('index', {
+      layout: "layout",
+      utilizator: utilizator,
+      produse: produse
+    });
   });
 });
+
 
 
 
