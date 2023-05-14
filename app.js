@@ -193,6 +193,16 @@ app.post("/rezultat-chestionar", async (req, res) => {
   });
 });
 
+app.post("/adaugare_cos", (req, res) => {
+  const idProdus = req.body.id;
+  if (!req.session.cos) {
+    req.session.cos = [];
+  }
+  req.session.cos.push(idProdus);
+  res.redirect('/');
+});
+
+
 app.listen(port, () =>
   console.log(`Serverul rulează la adresa http://localhost:`)
 );

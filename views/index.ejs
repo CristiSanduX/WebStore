@@ -9,7 +9,7 @@
         <tr>
           <th>ID</th>
           <th>Nume</th>
-          <th>Pret</th>
+          <th>Preț</th>
         </tr>
       </thead>
       <tbody>
@@ -18,7 +18,12 @@
             <td><%= produs.id %></td>
             <td><%= produs.nume %></td>
             <td><%= produs.pret %></td>
-            <td><button type="button">Adaugă în coș</button></td>
+            <td>
+              <form method="POST" action="/adaugare_cos">
+                <input type="hidden" name="id" value="<%= produs.id %>">
+                <button type="submit">Adaugă în coș</button>
+              </form>
+            </td>
           </tr>
         <% }); %>
       </tbody>
