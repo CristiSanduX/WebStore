@@ -25,7 +25,13 @@
               <td><%= produs.id %></td>
               <td><%= produs.nume %></td>
               <td><%= produs.pret %> lei</td>
-              <td><%= produs.cantitate %></td>
+              <td>
+                <form action="/modificare_cantitate" method="POST">
+                  <input type="hidden" name="idProdus" value="<%= produs.id %>">
+                  <input type="number" name="cantitate" value="<%= produs.cantitate %>">
+                  <input type="submit" value="Modificare cantitate">
+                </form>
+              </td>
               <td><%= produs.total.toFixed(2)%> lei</td>
             </tr>
             <% totalComanda += produs.total; %>
@@ -37,6 +43,10 @@
         </tbody>
         
       </table>
+      <form action="/goleste_cos" method="post">
+        <button type="submit">Golește coșul</button>
+      </form>
+      
     <% } else { %>
       <p>Nu ai niciun produs în coș.</p>
     <% } %>

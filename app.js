@@ -245,6 +245,30 @@ app.get("/vizualizare_cos", autentificareMiddleware, (req, res) => {
   });
 });
 
+app.post("/goleste_cos", (req, res) => {
+  req.session.cos = [];
+  res.redirect('/vizualizare_cos');
+});
+app.post("/modificare_cantitate", (req, res) => {
+  const { idProdus, cantitate } = req.body;
+
+  // Găsim produsul în coș
+  let produsInCos = req.session.cos.find((produs) => produs.id === idProdus);
+  
+  if (produsInCos && cantitate > 0) {
+    // Dacă produsul există și cantitatea este mai mare decât 0, modificăm cantitatea
+    produsInCos.cantitate = cantitate;
+  } else if (produsInCos && cantitate <= 0) {
+    // Dacă produsul există și cantitatea este 0 sau mai mică, ștergem produsul din coș
+    const index = req.session.cos.indexOf(produsInCos);
+    req.session.cos.splice(index, 1);
+  }
+  
+  res.redirect('/vizualizare_cos');
+});
+
+
+
 
 app.listen(port, () =>
   console.log(`Serverul rulează la adresa http://localhost:`)
