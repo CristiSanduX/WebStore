@@ -1,52 +1,35 @@
 body {
+  padding: 20px;
   background-image: url("/imagini/f5.jpg");
   background-size: cover;
  }
 
 /* MENIU */
 nav {
-    background-color: #8670c7;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4); /* adaugă o umbră la marginile meniului */
     border-radius: 20px; 
     padding: 10px; /* stabilește spațierea dintre conținut și margini */
-    justify-content: center; /* aliniază elementele în centru */
     display: flex; /* meniul este afișat ca un container flexibil */
     text-transform: uppercase;
   }
-  @font-face {
-    font-family: 'Jack';
-    src: url('jack.ttf');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-  font-family: 'Campus';
-  src: url('campus.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
 
 nav a {
   font-family: 'Jack', sans-serif;
   font-size: 18px;
-  /* Restul stilurilor pentru link-uri */
-
-  color: black; /* culoarea link-urilor */
   padding: 5px 20px 5px 20px; /* spațierea dintre link-uri */
-    
   transition: background-color 0.7s ease-in-out, color 0.7s ease-in-out; 
   /* efectul de tranziție atunci când utilizatorul trece cursorul peste link-uri */
-
   position: relative;
   text-decoration: none;
 }
 
-nav a:hover{
+nav a:hover {
   cursor: pointer; /* schimbă aspectul cursorului de mouse la forma unei mâini */
   box-shadow: 0 0 5px rgba(0,0,0,0.3); 
   font-size: 22px; /* mărește dimensiunea fontului */
   color: white;
   text-shadow: 2px 2px 4px #000000;
+  text-decoration: none; /* Dezactivează sublinierea */
 }
 
 /* rotim elementele din meniu pare la -10 grade  și cele impare la 10 grade */
@@ -103,10 +86,65 @@ nav a:hover::after {
   background-color: rgba(121, 122, 144, 0.9);
   padding: 20px;
   width: 820px;
-  margin: 0 auto;
+  margin: 50px auto;
   flex-direction: column;
   border-radius: 10px; /* Adaugă margini rotunjite */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Adaugă un efect de umbrire */
 }
 
 
+/* Stilurile Bootstrap */
+.container {
+  padding: 2em;
+}
+
+.table {
+  margin: auto;
+}
+
+.btn-container {
+  text-align: center;
+}
+
+.btn {
+  margin: 1em;
+}
+
+.table {
+  background-color: rgba(255, 255, 255, 0.8); /* Alb cu 70% opacitate */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.navbar {
+  background-color: black !important;
+}
+
+.navbar a, .navbar h6 {
+  color: white !important;
+}
+
+.navbar button {
+  color: black;
+  background-color: white;
+}
+
+.btn-back a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.social-icon {
+  width: 50px;
+  height: 50px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.social-icon:hover {
+  transform: scale(1.3);
+}
+
+footer {
+  margin-top: 100px;
+}

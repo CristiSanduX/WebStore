@@ -9,14 +9,22 @@
       <div class="question">
         <h3><%= intrebari[i].intrebare %></h3>
         <% for(var j = 0; j < intrebari[i].variante.length; j++) { %>
-        <input type="radio" name="intrebare<%= i %>" value="<%= j %>" id="intrebare<%= i %>-varianta<%= j %>" />
-        <label for="intrebare<%= i %>-varianta<%= j %>"><%= intrebari[i].variante[j] %></label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="intrebare<%= i %>" value="<%= j %>"
+            id="intrebare<%= i %>-varianta<%= j %>">
+          <label class="form-check-label" for="intrebare<%= i %>-varianta<%= j %>">
+            <%= intrebari[i].variante[j] %>
+          </label>
+        </div>
         <% } %>
       </div>
       <% } %>
-      <br><input type="submit" value="Trimite" />
+      <br><input class="btn btn-primary" type="submit" value="Trimite" />
     </form>
   </div>
 
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="/quiz.js"></script>
 </body>

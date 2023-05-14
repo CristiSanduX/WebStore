@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <title>Vizualizare coș</title>
+</head>
+<body>
+  <div class="container">
     <h1>Coș de cumpărături</h1>
     <% if (produseCos && produseCos.length > 0) { %>
-      <table>
+      <table class="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -27,6 +30,7 @@
       <p>Nu ai niciun produs în coș.</p>
     <% } %>
     <br><br>
-    <button><a href="/">Înapoi la produse</a></button>
-  </body>
+    <button class="btn btn-primary btn-back"><a href="/">Înapoi la produse</a></button>
+  </div>
+</body>
 </html>

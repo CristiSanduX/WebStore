@@ -34,9 +34,9 @@ app.get("/creare-bd", (req, res) => {
 app.get("/incarcare-bd", (req, res) => {
   let sql = "INSERT INTO produse (nume, pret) VALUES ?";
   let values = [
-    ['Produs1Aparat foto digital Nikon COOLPIX P1000', 4499.99],
+    ['Aparat foto digital Nikon COOLPIX P1000', 4499.99],
     ['Obiectiv foto Canon EF 50mm', 629.99],
-    ['Aparat foto DSLR Canon EOS 2000D', 420.00]
+    ['Aparat foto DSLR Canon EOS 2000D', 3420.00]
   ];
   db.query(sql, [values], function(err, result) {
     if (err) throw err;
@@ -224,7 +224,7 @@ function getProduseDinCos(iduriProduse, callback) {
   });
 }
 
-app.get("/vizualizare_cos", (req, res) => {
+app.get("/vizualizare_cos", autentificareMiddleware, (req, res) => {
   const iduriProduse = req.session.cos || [];
   getProduseDinCos(iduriProduse, (produseCos) => {
     res.render('vizualizare-cos', { produseCos: produseCos });

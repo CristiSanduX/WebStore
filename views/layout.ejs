@@ -3,31 +3,45 @@
 
 <head>
   <meta charset="UTF-8">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
   <link rel="stylesheet" href="/style/stil.css">
 </head>
 
 <body>
   <header>
-    <nav>
-      <a href="/">Acasă</a>
-      <a href="/chestionar">Chestionar</a>
-      <a href=" /vizualizare_cos">Vizualizare coș</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <div class="navbar-nav">
+          <a class="nav-link" href="/">Acasă</a>
+          <a class="nav-link" href="/chestionar">Chestionar</a>
+          <a class="nav-link" href=" /vizualizare_cos">Vizualizare coș</a>
+        </div>
+
+        <% if (typeof utilizator !== "undefined") { %>
+        <div class="d-flex ml-auto">
+          <h6 class="navbar-text">Autentificat ca <em><%= utilizator.prenume %> <%= utilizator.nume %></em>!</h6>
+          <form class="form-inline" action="/delogare" method="get">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Delogare</button>
+          </form>
+        </div>
+        <% } %>
+      </div>
     </nav>
-    <% if (typeof utilizator !== "undefined") { %>
-      <h1>Autentificat ca <em><%= utilizator.prenume %> <%= utilizator.nume %></em>!</h1>
-        <form action="/delogare" method="get">
-            <input type="submit" value="Delogare">
-        </form>
-    <% } %>
-    
-    
   </header>
   <main>
     <%- body %>
   </main>
-  <footer>
-    <p>&copy; Cristi Sandu</p>
-  </footer>
+  <footer class="bg-light py-0.25">
+    <div class="container text-center">
+      <p>&copy; Cristi Sandu</p>
+      <div class="social-media-icons mt-3">
+        <a href="https://github.com/HDR-2022-2023/proiect-2-xCristiSandu" target="_blank"><img src="/imagini/github.png" alt="GitHub" class="img-fluid rounded-circle social-icon"></a>
+        <a href="https://www.linkedin.com/in/cristisandux/" target="_blank"><img src="/imagini/linkedin.png" alt="Twitter" class="img-fluid rounded-circle social-icon"></a>
+      </div>
+    </div>
+  </footer>  
 </body>
 
 </html>
