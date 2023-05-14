@@ -36,7 +36,12 @@ app.get("/incarcare-bd", (req, res) => {
   let values = [
     ['Aparat foto digital Nikon COOLPIX P1000', 4499.99],
     ['Obiectiv foto Canon EF 50mm', 629.99],
-    ['Aparat foto DSLR Canon EOS 2000D', 3420.00]
+    ['Aparat foto DSLR Canon EOS 2000D', 3420.00],
+    ['Aparat foto instant Fujifilm',359.00],
+    ['Aparat foto instant Polaroid Now+',700.20],
+    ['Aparat foto pe film AgfaPhoto 35mm',140.99],
+    ['Aparat foto compact Panasonic Lumix',3600.00],
+    ['Aparat foto digital Canon IXUS 190', 928.99]
   ];
   db.query(sql, [values], function(err, result) {
     if (err) throw err;
