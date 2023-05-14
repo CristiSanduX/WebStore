@@ -13,18 +13,29 @@
           <tr>
             <th>ID</th>
             <th>Nume</th>
-            <th>Pret</th>
+            <th>Preț</th>
+            <th>Cantitate</th>
+            <th>Total produs</th>
           </tr>
         </thead>
         <tbody>
+          <% let totalComanda = 0; %>
           <% produseCos.forEach((produs) => { %>
             <tr>
               <td><%= produs.id %></td>
               <td><%= produs.nume %></td>
-              <td><%= produs.pret %></td>
+              <td><%= produs.pret %> lei</td>
+              <td><%= produs.cantitate %></td>
+              <td><%= produs.total.toFixed(2)%> lei</td>
             </tr>
+            <% totalComanda += produs.total; %>
           <% }); %>
+          <tr>
+            <td colspan="4">Total comandă</td>
+            <td><%= totalComanda.toFixed(2) %> lei</td>
+          </tr>
         </tbody>
+        
       </table>
     <% } else { %>
       <p>Nu ai niciun produs în coș.</p>

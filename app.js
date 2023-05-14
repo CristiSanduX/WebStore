@@ -197,21 +197,27 @@ app.post("/adaugare_cos", (req, res) => {
   if (!req.session.cos) {
     req.session.cos = [];
   }
-  req.session.cos.push(idProdus);
+  // Verificăm dacă produsul există deja în coș
+  let produsInCos = req.session.cos.find((produs) => produs.id === idProdus);
+  if (produsInCos) {
+    // Dacă produsul există, creștem cantitatea
+    produsInCos.cantitate++;
+  } else {
+    // Dacă produsul nu există, îl adăugăm cu cantitatea 1
+    req.session.cos.push({ id: idProdus, cantitate: 1 });
+  }
   res.redirect('/');
 });
 
-function getProduseDinCos(iduriProduse, callback) {
+function getProduseDinCos(produseInCos, callback) {
   // Verificăm dacă avem ID-uri de produse în coș
-  if (iduriProduse.length === 0) {
+  if (produseInCos.length === 0) {
     callback([]);
     return;
   }
 
-  // Construim un string cu interogarea SQL
+  let iduriProduse = produseInCos.map((produs) => produs.id);
   let sql = `SELECT * FROM produse WHERE id IN (${iduriProduse.join(',')})`;
-
-  // Executăm interogarea
   db.query(sql, (error, results) => {
     if (error) {
       console.error('Eroare la interogarea bazei de date', error);
@@ -219,10 +225,18 @@ function getProduseDinCos(iduriProduse, callback) {
       return;
     }
 
-    // Trimitem rezultatele interogării înapoi prin intermediul funcției callback
-    callback(results);
+    // Adăugăm câmpul de cantitate pentru fiecare produs
+    let produse = results.map((produs) => {
+      let produsInCos = produseInCos.find((p) => parseInt(p.id) === parseInt(produs.id));
+      let total = produs.pret * produsInCos.cantitate;
+      return { ...produs, cantitate: produsInCos.cantitate, total: total };
+    });
+    
+
+    callback(produse);
   });
 }
+
 
 app.get("/vizualizare_cos", autentificareMiddleware, (req, res) => {
   const iduriProduse = req.session.cos || [];
