@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>Coș de cumpărături</h1>
+    <% if (produseCos && produseCos.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nume</th>
+            <th>Pret</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% produseCos.forEach((produs) => { %>
+            <tr>
+              <td><%= produs.id %></td>
+              <td><%= produs.nume %></td>
+              <td><%= produs.pret %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p>Nu ai niciun produs în coș.</p>
+    <% } %>
+    <br><br>
+    <button><a href="/">Înapoi la produse</a></button>
+  </body>
+</html>

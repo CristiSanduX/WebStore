@@ -64,7 +64,6 @@ function getProduse(callback) {
   connection.end();
 }
 
-
 app.use(session({
   secret: 'secret-key', // cheia secretă utilizată pentru a cripta cookie-ul de sesiune
   resave: false, // salvează sesiunea chiar dacă nu a fost modificată
@@ -200,6 +199,36 @@ app.post("/adaugare_cos", (req, res) => {
   }
   req.session.cos.push(idProdus);
   res.redirect('/');
+});
+
+function getProduseDinCos(iduriProduse, callback) {
+  // Verificăm dacă avem ID-uri de produse în coș
+  if (iduriProduse.length === 0) {
+    callback([]);
+    return;
+  }
+
+  // Construim un string cu interogarea SQL
+  let sql = `SELECT * FROM produse WHERE id IN (${iduriProduse.join(',')})`;
+
+  // Executăm interogarea
+  db.query(sql, (error, results) => {
+    if (error) {
+      console.error('Eroare la interogarea bazei de date', error);
+      callback([]);
+      return;
+    }
+
+    // Trimitem rezultatele interogării înapoi prin intermediul funcției callback
+    callback(results);
+  });
+}
+
+app.get("/vizualizare_cos", (req, res) => {
+  const iduriProduse = req.session.cos || [];
+  getProduseDinCos(iduriProduse, (produseCos) => {
+    res.render('vizualizare-cos', { produseCos: produseCos });
+  });
 });
 
 
